@@ -1,13 +1,37 @@
 security:
     # https://symfony.com/doc/current/security.html#where-do-users-come-from-user-providers
     providers:
+        in_database:
+            entity:
+                class: App\Entity\User
+                property: name
         in_memory: { memory: null }
+
+    encoders:
+        App\Entity\User:
+            algorithm: auto
     firewalls:
         dev:
             pattern: ^/(_(profiler|wdt)|css|images|js)/
             security: false
+        admin:
+            pattern: ^/compo-admin
+            anonymous: true
+
+            provider: in_database
+
+            form_login:
+                login_path: admin_connexion
+                check_path: admin_connexion
+                default_target_path: dashboard
+                always_use_default_target_path: true
+                csrf_token_generator: security.csrf.token_manager
+
+            logout:
+                path: admin_deconnexion
+                target: admin_connexion
         main:
-            anonymous: lazy
+            anonymous: true
 
             # activate different ways to authenticate
             # https://symfony.com/doc/current/security.html#firewalls-authentication
@@ -20,3 +44,10 @@ security:
     access_control:
         # - { path: ^/admin, roles: ROLE_ADMIN }
         # - { path: ^/profile, roles: ROLE_USER }
+        # access login back
+        - { path: ^/compo-admin/account/connexion, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/compo-admin/account/inscription, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/compo-admin/account/forgotten, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        - { path: ^/compo-admin/account/recuperation-password/, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+        # role admin requis pour le back
+        - { path: ^/compo-admin, roles: ROLE_ADMIN }
