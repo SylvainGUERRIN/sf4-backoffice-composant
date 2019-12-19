@@ -24,13 +24,13 @@ use \DateTime;
 /**
  * Class SecurityController
  * @package App\Controller
- * @Route("/compo-admin/account")
+ * @Route("/user/account")
  */
 class SecurityController extends AbstractController
 {
 
     /**
-     * @Route("/connexion", name="admin_connexion")
+     * @Route("/connexion", name="user_connexion")
      *
      * @param AuthenticationUtils $helper
      * @param Security $security
@@ -56,7 +56,7 @@ class SecurityController extends AbstractController
 
     /**
      * permet de se deconnecter
-     * @Route("/deconnexion", name="admin_deconnexion")
+     * @Route("/deconnexion", name="user_deconnexion")
      * @return void
      */
     public function deconnexion()
@@ -84,6 +84,7 @@ class SecurityController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $hashPass = $encoder->encodePassword($user, $user->getPassword());
             $user->setPass($hashPass);
+//            change it after set user admin for next user
             $user->setRole('admin');
 
             $em = $this->getDoctrine()->getManager();
@@ -104,7 +105,7 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/profil", name="admin_profil")
+     * @Route("/profil", name="user_profil")
      * @param Request $request
      * @return Response
      * @throws \Exception
