@@ -12,7 +12,7 @@ use Symfony\Component\Routing\Annotation\Route;
  * Class AdminArticlesController
  * @package App\Controller
  *
- * @Route("sgadblog/administration")
+ * @Route("compo-admin/administration")
  */
 class AdminArticlesController extends AbstractController
 {

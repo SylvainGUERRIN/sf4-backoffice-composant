@@ -38,13 +38,13 @@ class SecurityController extends AbstractController
      */
     public function connexion(AuthenticationUtils $helper, Security $security): Response
     {
-        if ($security->isGranted('ROLE_ADMIN')) {
-            return $this->redirectToRoute('dashboard');
+        if ($security->isGranted('ROLE_USER')) {
+            return $this->redirectToRoute('member_space');
         }
 
 //        $error = $utils->getLastAuthenticationError();
 //        $username = $utils->getLastUsername();
-        return $this->render('admin/account/login.html.twig', [
+        return $this->render('user/account/login.html.twig', [
 //            'hasError' => $error !== null,
 //            'username' => $username
             // last username entered by the user (if any)
@@ -85,7 +85,7 @@ class SecurityController extends AbstractController
             $hashPass = $encoder->encodePassword($user, $user->getPassword());
             $user->setPass($hashPass);
 //            change it after set user admin for next user
-            $user->setRole('admin');
+            $user->setRole('user');
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
@@ -99,7 +99,7 @@ class SecurityController extends AbstractController
             return $this->redirectToRoute('admin_connexion');
         }
 
-        return $this->render('admin/account/inscription.html.twig', [
+        return $this->render('user/account/inscription.html.twig', [
             'form' => $form->createView()
         ]);
     }
@@ -134,7 +134,7 @@ class SecurityController extends AbstractController
             );
         }
 
-        return $this->render('admin/account/profil.html.twig', [
+        return $this->render('user/account/profil.html.twig', [
             'controller_name' => 'AccountController',
             'form' => $form->createView()
         ]);
@@ -176,12 +176,17 @@ class SecurityController extends AbstractController
                 "Votre mot de passe a bien été modifié !"
             );
 
-            return $this->redirectToRoute('dashboard');
+            return $this->redirectToRoute('member_space');
         }
 
-        return $this->render('admin/account/pass.html.twig', [
+        return $this->render('user/account/pass.html.twig', [
             'form' => $form->createView()
         ]);
+    }
+
+    public function member()
+    {
+        $this->render('user/member.html.twig');
     }
 
 }
