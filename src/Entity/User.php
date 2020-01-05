@@ -147,7 +147,11 @@ class User implements UserInterface, \Serializable
      */
     public function getRoles()
     {
-        // TODO: Implement getRoles() method.
+        if($this->getRole() === 'admin'){
+            return ['ROLE_ADMIN'];
+        }else {
+            return ['ROLE_USER'];
+        }
     }
 
     /**

@@ -65,7 +65,7 @@ class SecurityController extends AbstractController
     }
 
     /**
-     * @Route("/inscription", name="inscription")
+     * @Route("/inscription", name="user_inscription")
      *
      * @param Request $request
      * @param UserPasswordEncoderInterface $encoder
@@ -96,7 +96,7 @@ class SecurityController extends AbstractController
                 'Votre compte a bien été créé ! Vous pouvez maintenant vous connecter !'
             );
 
-            return $this->redirectToRoute('admin_connexion');
+            return $this->redirectToRoute('user_connexion');
         }
 
         return $this->render('user/account/inscription.html.twig', [
@@ -184,6 +184,9 @@ class SecurityController extends AbstractController
         ]);
     }
 
+    /**
+     * @Route("/member-space", name="member_space")
+     */
     public function member()
     {
         $this->render('user/member.html.twig');
