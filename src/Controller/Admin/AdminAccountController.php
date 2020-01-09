@@ -36,8 +36,8 @@ class AdminAccountController extends AbstractController
         $username = $utils->getLastUsername();
 
         return $this->render('admin/account/adminLogin.html.twig', [
-            'hasError' => $error !== null,
-            'username' => $username
+            'error' => $error !== null,
+            'last_username' => $username
         ]);
     }
 
@@ -70,7 +70,7 @@ class AdminAccountController extends AbstractController
             $hashPass = $encoder->encodePassword($user, $user->getPassword());
             $user->setPass($hashPass);
 //            change it after set user admin for next user
-            $user->setRole('user');
+            $user->setRole('admin');
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);

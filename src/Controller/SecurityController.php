@@ -189,7 +189,7 @@ class SecurityController extends AbstractController
      */
     public function member()
     {
-        $this->render('user/member.html.twig');
+        return $this->render('user/member.html.twig');
     }
 
 }
