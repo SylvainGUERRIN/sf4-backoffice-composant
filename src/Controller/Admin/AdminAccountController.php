@@ -4,6 +4,7 @@ namespace App\Controller\Admin;
 
 use App\Entity\PasswordUpdate;
 use App\Form\AccountType;
+use App\Form\InscriptionType;
 use App\Form\PasswordUpdateType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -12,6 +13,7 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use App\Entity\User;
 
 /**
  * Class AdminAccountController
@@ -107,7 +109,7 @@ class AdminAccountController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $user->setUpdatedAt(new DateTime('now'));
+//            $user->setUpdatedAt(new DateTime('now'));
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);

@@ -122,7 +122,7 @@ class SecurityController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            $user->setUpdatedAt(new DateTime('now'));
+//            $user->setUpdatedAt(new DateTime('now'));
 
             $em = $this->getDoctrine()->getManager();
             $em->persist($user);
