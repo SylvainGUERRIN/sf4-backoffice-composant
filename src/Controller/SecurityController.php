@@ -69,12 +69,12 @@ class SecurityController extends AbstractController
      *
      * @param Request $request
      * @param UserPasswordEncoderInterface $encoder
+     * @param Security $security
      * @return Response
-     * @throws \Exception
      */
     public function inscription(
         Request $request,
-        UserPasswordEncoderInterface $encoder): Response
+        UserPasswordEncoderInterface $encoder, Security $security): Response
     {
         if ($security->isGranted('ROLE_USER')) {
             return $this->redirectToRoute('member_space');
