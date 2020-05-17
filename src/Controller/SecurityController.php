@@ -76,6 +76,10 @@ class SecurityController extends AbstractController
         Request $request,
         UserPasswordEncoderInterface $encoder): Response
     {
+        if ($security->isGranted('ROLE_USER')) {
+            return $this->redirectToRoute('member_space');
+        }
+
         $user = new User();
 
         $form = $this->createForm(InscriptionType::class, $user);
